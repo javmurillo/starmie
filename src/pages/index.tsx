@@ -4,10 +4,9 @@ import { GetStaticProps } from 'next'
 import { dbConnect } from '../../util/dbConnect'
 import { IPokemon } from '../interfaces/IPokemon'
 import PokemonsService from '../services/pokemon'
+import Home from '../components/Home/Home'
 
-const Home: FC = (): ReactElement | null => {
-  return null
-}
+const HomePage: FC = (): ReactElement | null => <Home />
 
 export const getStaticProps: GetStaticProps = async () => {
   await dbConnect()
@@ -19,4 +18,4 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-export default Home
+export default HomePage

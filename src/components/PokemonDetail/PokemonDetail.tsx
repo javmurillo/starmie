@@ -78,7 +78,6 @@ const PokemonDetail: FC<PokemonDetailProps> = ({
                     width={64}
                     quality={100}
                     alt={`Image of ${name}`}
-                    loading={'eager'}
                   />
                 </a>
               </Link>
@@ -95,7 +94,6 @@ const PokemonDetail: FC<PokemonDetailProps> = ({
                     width={64}
                     quality={100}
                     alt={`Image of ${name}`}
-                    loading={'eager'}
                     key={_id}
                   />
                 </a>
