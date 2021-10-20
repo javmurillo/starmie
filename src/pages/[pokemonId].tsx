@@ -6,6 +6,7 @@ import { dbConnect } from '../../util/dbConnect'
 import { IPokemon } from '../interfaces/IPokemon'
 import PokemonDetail from '../components/PokemonDetail/PokemonDetail'
 import PokemonsService from '../services/pokemon'
+import { useRouter } from 'next/router'
 
 interface PokemonDetailPageProps {
   pokemon: IPokemon
@@ -20,7 +21,11 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({
   strongAgainst,
   weakAgainst,
 }): ReactElement => {
-  return (
+  const { isFallback } = useRouter()
+
+  return isFallback ? (
+    <h1 style={{ color: 'white' }}>Loading...</h1>
+  ) : (
     <PokemonDetail
       pokemon={pokemon}
       strongAgainst={strongAgainst}
@@ -39,9 +44,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
     PokemonsService.getPokemons(),
     PokemonsService.getPokemon(pokemonId),
   ])
-
-  const strongAgainst = await PokemonsService.getStrongAgainst(pokemon)
-  const weakAgainst = await PokemonsService.getWeakAgainst(pokemon)
+  const [strongAgainst, weakAgainst] = await Promise.all([
+    PokemonsService.getStrongAgainst(pokemon),
+    PokemonsService.getWeakAgainst(pokemon),
+  ])
 
   return {
     props: {
@@ -68,7 +74,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 

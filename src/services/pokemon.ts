@@ -270,7 +270,7 @@ const getWeakAgainst = async (pokemon: LeanDocument<PokemonDoc> | null) => {
   return weakAgainst.sort(() => Math.random() - Math.random()).slice(0, 5)
 }
 
-const getPokemonsNames = () => Pokemon.find({}, 'name')
+const getPokemonsNames = () => Pokemon.find({}, 'name').limit(1)
 
 const PokemonsService = {
   getTypes,

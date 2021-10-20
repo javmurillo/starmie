@@ -30,11 +30,27 @@
   height: 10vh;
 }
 
-.against {
+.against-container {
   display: flex;
   margin-top: 16px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.against {
+  display: flex;
 }
 
 .strongAgainst {
   flex-grow: 1;
+}
+
+.reload {
+  align-self: center;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  font-family: 'PressStart2P', BlinkMacSystemFont, Segoe UI, Roboto;
+  font-size: 10px;
+  padding: 0.5rem;
 }

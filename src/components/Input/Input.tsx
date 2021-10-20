@@ -1,8 +1,8 @@
-import { ReactElement, useState, FC, SyntheticEvent } from 'react'
+import { ReactElement, useState, FC, SyntheticEvent, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import { IPokemon } from '../../interfaces/IPokemon'
-
 import TypeBadge from '../TypeBadge/TypeBadge'
 
 import styles from './Input.module.scss'
@@ -22,19 +22,9 @@ const Input: FC<InputProps> = ({ pokemons }): ReactElement => {
   const onChangeInput = (
     e: SyntheticEvent & { target: { value: string } }
   ): void => {
-    const query = e.target.value
-    setQuery(query)
-    if (query.length >= 2) {
-      setShow(true)
-    } else {
-      setShow(false)
-    }
-  }
-
-  const navigateToPokemon = (pokemonName: string): void => {
-    setQuery(pokemonName)
-    setShow(false)
-    router.push(`/${pokemonName}`)
+    const { value } = e.target
+    setQuery(value)
+    setShow(value.length >= 2)
   }
 
   const getHighlightedText = (text: string): ReactElement => {
@@ -57,6 +47,20 @@ const Input: FC<InputProps> = ({ pokemons }): ReactElement => {
     )
   }
 
+  useEffect(() => {
+    const navigateToPokemon = (): void => {
+      const pokemonName = window.location.pathname.replace('/', '')
+      setQuery(pokemonName)
+      setShow(false)
+    }
+
+    router.events.on('routeChangeStart', navigateToPokemon)
+
+    return () => {
+      router.events.off('routeChangeStart', navigateToPokemon)
+    }
+  }, [router])
+
   return (
     <div className={styles['input-container']}>
       <input
@@ -71,20 +75,18 @@ const Input: FC<InputProps> = ({ pokemons }): ReactElement => {
         <div className={styles.modal}>
           {pokemons
             .filter((pokemon) => pokemon.name.includes(query.toLowerCase()))
-            .map((pokemon) => (
-              <div
-                className={styles['pokemon-item']}
-                key={pokemon.number}
-                onClick={() => navigateToPokemon(pokemon.name)}
-              >
-                <span className={styles.name}>
-                  <span className={styles.number}>#{pokemon.number}</span>
-                  {getHighlightedText(pokemon.name)}
-                </span>
-                {pokemon.types.map((type) => (
-                  <TypeBadge type={type} key={type.type._id} />
-                ))}
-              </div>
+            .map(({ name, number, types }) => (
+              <Link href={name} key={number} prefetch={false} passHref>
+                <div className={styles['pokemon-item']}>
+                  <span className={styles.name}>
+                    <span className={styles.number}>#{number}</span>
+                    {getHighlightedText(name)}
+                  </span>
+                  {types.map((type) => (
+                    <TypeBadge type={type} key={type.type._id} />
+                  ))}
+                </div>
+              </Link>
             ))}
         </div>
       )}
