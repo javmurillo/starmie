@@ -74,7 +74,7 @@ const PokemonStats: FC<PokemonStatsProps> = ({
 
   return (
     <div>
-      <Radar data={data} options={options} width={550} height={550} />
+      <Radar data={data} options={options} width={400} height={400} />
     </div>
   )
 }

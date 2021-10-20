@@ -49,10 +49,10 @@ const Input: FC<InputProps> = ({ pokemons }): ReactElement => {
 
   useEffect(() => {
     const navigateToPokemon = (): void => {
-      const pokemonName = window.location.pathname.replace('/', '')
-      setQuery(pokemonName)
       setShow(false)
     }
+    const pokemonName = window.location.pathname.replace('/', '')
+    setQuery(pokemonName)
 
     router.events.on('routeChangeStart', navigateToPokemon)
 
