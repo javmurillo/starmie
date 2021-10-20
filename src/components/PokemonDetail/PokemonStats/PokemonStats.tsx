@@ -1,9 +1,18 @@
 import { FC, ReactElement } from 'react'
-import { ChartOptions } from 'chart.js'
+import {
+  ChartOptions,
+  CoreChartOptions,
+  DatasetChartOptions,
+  ElementChartOptions,
+  LineControllerChartOptions,
+  PluginChartOptions,
+  ScaleChartOptions,
+} from 'chart.js'
 import { Radar } from 'react-chartjs-2'
 
 import { IPokemon } from '../../../interfaces/IPokemon'
 import getColor from '../../../utils/getColor'
+import { _DeepPartialObject } from 'chart.js/types/utils'
 
 interface PokemonStatsProps {
   pokemon: IPokemon
@@ -42,7 +51,16 @@ const PokemonStats: FC<PokemonStatsProps> = ({
     ],
   }
 
-  const options: ChartOptions = {
+  const options:
+    | _DeepPartialObject<
+        CoreChartOptions<'radar'> &
+          ElementChartOptions<'radar'> &
+          PluginChartOptions<'radar'> &
+          DatasetChartOptions<'radar'> &
+          ScaleChartOptions<any> &
+          LineControllerChartOptions
+      >
+    | undefined = {
     maintainAspectRatio: false,
     plugins: {
       legend: {
