@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 
-import { dbConnect } from '../../util/dbConnect'
+import dbConnect from '../../util/dbConnect'
 import { IPokemon } from '../interfaces/IPokemon'
 import PokemonDetail from '../components/PokemonDetail/PokemonDetail'
 import PokemonsService from '../services/pokemon'

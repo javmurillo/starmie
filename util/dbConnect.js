@@ -19,19 +19,14 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null }
 }
 
-export async function dbConnect() {
+async function dbConnect() {
   if (cached.conn) {
     return cached.conn
   }
 
   if (!cached.promise) {
     const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       bufferCommands: false,
-      bufferMaxEntries: 0,
-      useFindAndModify: false,
-      useCreateIndex: true,
     }
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
@@ -41,3 +36,5 @@ export async function dbConnect() {
   cached.conn = await cached.promise
   return cached.conn
 }
+
+export default dbConnect
