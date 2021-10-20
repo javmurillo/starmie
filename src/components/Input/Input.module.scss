@@ -1,0 +1,64 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 64px;
+}
+
+.input {
+ background: none;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 30px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #404040;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+}
+
+.modal {
+  overflow: auto;
+  max-height: 400px;
+  box-shadow: 2px 5px rgb(0 112 243 / 20%);
+  position: absolute;
+  z-index: 4;
+  background-color: black;
+  top: 33px;
+  width: 100%;
+}
+
+.pokemon-item {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  text-transform: capitalize;
+
+  &:nth-child(even) {
+    background-color: rgb(0, 17, 46, 0.5);
+  }
+
+  .name {
+    flex: 1;
+  }
+}
+
+.number {
+  &::after {
+    content: ' - ';
+  }
+
+  @media (max-width: 1025px) {
+    &::after {
+      content: '';
+    }
+  }
+}

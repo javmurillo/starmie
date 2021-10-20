@@ -1,0 +1,12 @@
+.badge {
+  border-radius: 4px;
+  border: 1px solid black;
+  text-shadow: 1px 1px 2px rgb(0 0 0 / 70%);
+  padding: 4px;
+  font-size: 12px;
+  height: 100%;
+
+  &:nth-of-type(odd) {
+    margin-left: 4px;
+  }
+}
