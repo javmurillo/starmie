@@ -61,7 +61,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       strongAgainst: JSON.parse(JSON.stringify(strongAgainst)) as IPokemon[],
       weakAgainst: JSON.parse(JSON.stringify(weakAgainst)) as IPokemon[],
     },
-    revalidate: 10,
   }
 }
 
@@ -79,7 +78,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
