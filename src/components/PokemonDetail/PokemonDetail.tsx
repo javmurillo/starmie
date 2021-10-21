@@ -28,16 +28,12 @@ const PokemonDetail: FC<PokemonDetailProps> = ({
   const [strong, setStrong] = useState(strongAgainst)
 
   const reload = (): void => {
-    fetch(`/api/weak?name=${pokemon.name}`)
+    fetch(`/api/reload?name=${pokemon.name}`)
       .then((response) => response.json())
       .then((data) => {
-        setWeak(data)
-      })
-
-    fetch(`/api/strong?name=${pokemon.name}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setStrong(data)
+        const { newStrongAgainst, newWeakAgainst } = data
+        setWeak(newWeakAgainst)
+        setStrong(newStrongAgainst)
       })
   }
 

@@ -8,7 +8,13 @@ export default async function handler(
   const { name } = req.query
   const pokemon = await PokemonsService.getPokemon(name)
 
-  const newStrongAgainst = await PokemonsService.getStrongAgainst(pokemon)
+  const [newStrongAgainst, newWeakAgainst] = await Promise.all([
+    PokemonsService.getStrongAgainst(pokemon),
+    PokemonsService.getWeakAgainst(pokemon),
+  ])
 
-  res.status(200).json(newStrongAgainst)
+  res.status(200).json({
+    newStrongAgainst,
+    newWeakAgainst,
+  })
 }
