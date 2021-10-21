@@ -48,6 +48,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
     PokemonsService.getWeakAgainst(pokemon),
   ])
 
+  if (!pokemon) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       pokemon: JSON.parse(JSON.stringify(pokemon)) as IPokemon,
@@ -73,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   }
 }
 
